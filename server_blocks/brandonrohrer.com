@@ -142,6 +142,9 @@ server {
 	     return 301 https://vimeo.com/685995963  ;
 	}
 
+	location = /1 {
+	     return 301 /httyr/httyr01.html;
+	}
 	location = /httyr1 {
 	     return 301 /httyr/httyr01.html;
 	}
@@ -155,6 +158,29 @@ server {
 	     return 301 https://github.com/brohrer/how-to-train-your-robot/tree/main/chapter_1 ;
 	}
 
+	location = /2 {
+	     return 301 https://www.brandonrohrer.com/httyr/httyr02.html;    
+	}
+	location = /httyr2pdf {
+	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_2/chapter_2.pdf;
+	}
+	location = /httyr2files {
+	     return 301 https://github.com/brohrer/how-to-train-your-robot/tree/main/chapter_2;
+	}
+
+	location = /3 {
+	     return 301 $scheme://brandonrohrer.com/httyr/httyr03.html;
+	}
+	location = /httyr3 {
+	     return 301 $scheme://brandonrohrer.com/httyr/httyr03.html;
+	}
+	location = /httyr3pdf {
+	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_3/chapter_3.pdf;
+	}
+	location = /httyr3book {
+	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_3/chapter_3.pdf;
+	}
+	location = /httyr3files {
 	location = /httyr2 {
 	     return 301 https://www.brandonrohrer.com/httyr/httyr02.html;    
 	}
@@ -165,6 +191,9 @@ server {
 	     return 301 https://github.com/brohrer/how-to-train-your-robot/tree/main/chapter_2;
 	}
 
+	location = /3 {
+	     return 301 $scheme://brandonrohrer.com/httyr/httyr03.html;
+	}
 	location = /httyr3 {
 	     return 301 $scheme://brandonrohrer.com/httyr/httyr03.html;
 	}
@@ -178,6 +207,9 @@ server {
 	     return 301 https://github.com/brohrer/how-to-train-your-robot/tree/main/chapter_3;
 	}
 
+	location = /4 {
+	     return 301 $scheme://brandonrohrer.com/httyr/httyr04.html;
+	}
 	location = /httyr4 {
 	     return 301 $scheme://brandonrohrer.com/httyr/httyr04.html;
 	}
@@ -286,13 +318,13 @@ server {
 	     return 301 https://vimeo.com/789313997;  
 	}
 
+	location = /6 {
+	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_6/chapter_6.pdf;
+	}
 	location = /httyr6 {
 	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_6/chapter_6.pdf;
 	}
 	location = /httyr6pdf {
-	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_6/chapter_6.pdf;
-	}
-	location = /6 {
 	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_6/chapter_6.pdf;
 	}
 	location = /6pdf {
@@ -304,9 +336,6 @@ server {
 	location = /6files {
 	     return 301 https://github.com/brohrer/how-to-train-your-robot/tree/main/chapter_6;
 	}
-	# location = / {
-	#      return 301 $scheme://brandonrohrer.com/;
-	# }
 
     listen [::]:443 ssl; # managed by Certbot
     listen 443 ssl; # managed by Certbot
