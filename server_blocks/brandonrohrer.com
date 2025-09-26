@@ -161,26 +161,6 @@ server {
 	location = /2 {
 	     return 301 https://www.brandonrohrer.com/httyr/httyr02.html;    
 	}
-	location = /httyr2pdf {
-	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_2/chapter_2.pdf;
-	}
-	location = /httyr2files {
-	     return 301 https://github.com/brohrer/how-to-train-your-robot/tree/main/chapter_2;
-	}
-
-	location = /3 {
-	     return 301 $scheme://brandonrohrer.com/httyr/httyr03.html;
-	}
-	location = /httyr3 {
-	     return 301 $scheme://brandonrohrer.com/httyr/httyr03.html;
-	}
-	location = /httyr3pdf {
-	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_3/chapter_3.pdf;
-	}
-	location = /httyr3book {
-	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_3/chapter_3.pdf;
-	}
-	location = /httyr3files {
 	location = /httyr2 {
 	     return 301 https://www.brandonrohrer.com/httyr/httyr02.html;    
 	}

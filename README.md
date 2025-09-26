@@ -2,4 +2,4 @@
 
 The copy/pastable cheatsheets by server are in
 
-doc/brandonrohrer.com.md
+doc/brandonrohrer.com.m
