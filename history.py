@@ -4,19 +4,19 @@ Show the webserver's logs in an easier to read format.
 Usage examples
 
 - Show the current day's hits to brandonrohrer.com
-    uv run history
+    uv run history.py
 
 - Show the hits from a particular IP address
-    uv run history --ip 123.123.123.123
+    uv run history.py --ip 123.123.123.123
 
 - Test against some stale data
-    uv run history --domain test
+    uv run history.py --domain test
 
 - Inspect the e2eml.school logs
-    uv run history --domain e2e
+    uv run history.py --domain e2e
 
 - Inspect the tyr.fyi logs
-    uv run history --domain tyr
+    uv run history.py --domain tyr
 
 
 `targets_to_ignore` is a list of URLs that are uninteresting

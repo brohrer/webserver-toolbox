@@ -81,63 +81,8 @@ def get_logs(domain="com"):
 
     return log_df
 
-'''
-    if _show_404s:
-        show_404s(log_df)
-
-    if _show_pages:
-        show_pages(log_df)
-
-    if _show_referrers:
-        show_referrers(log_df, _referrers_page)
-
-    if _show_ips:
-        show_ips(log_df)
-
-    if _show_history:
-        show_history(log_df)
-
-    if _show_ip:
-        show_history(log_df, ip=_ip)
-'''
-
-def show_pages(log_df):
-    pages_visited = log_df.loc[log_df["code"] == "200", "uri"].str.removesuffix(".html").values
-
-    pages, counts = np.unique(pages_visited, return_counts=True)
-    order = np.argsort(counts)
-    for i in order:
-        if "javascripts" not in pages[i] and "stylesheets" not in pages[i]:
-            print(counts[i], pages[i])
-
-
-def show_404s(log_df):
-    pages_not_found = log_df.loc[log_df["code"] == "404", "uri"].values
-    pages, counts = np.unique(pages_not_found, return_counts=True)
-    order = np.argsort(counts)
-    for i in order:
-        print(counts[i], pages[i])
-
-
-def show_referrers(log_df, page):
-    page.removesuffix(".html")
-    referrers = log_df.loc[(log_df["code"] == "200") & (log_df["uri"] == page), "referrer"].str.removesuffix(".html").values
-    referrers, counts = np.unique(referrers, return_counts=True)
-    order = np.argsort(counts)
-    for i in order:
-        print(counts[i], referrers[i])
-
-
-def show_ips(log_df):
-    ips = log_df["ip"].values
-    ips, counts = np.unique(ips, return_counts=True)
-    order = np.argsort(counts)
-    for i in order:
-        print(counts[i], ips[i])
-
-# TODO: show ips, show pages, show 404s
-
 
 if __name__ == "__main__":
-    logs = get_logs()
-    logs.head()
+    logs = get_logs(domain="test")
+    print(logs.head())
+
