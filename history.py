@@ -22,29 +22,30 @@ Usage examples
 `targets_to_ignore` is a list of URLs that are uninteresting
 and shouldn't be displayed.
 """
+
 import argparse
-from ignore import targets_to_ignore
+from targets import targets_to_ignore
 import log_reader
 
-# domains = ["com", "com1", "e2e", "tyr", "def", "test"] 
+# domains = ["com", "com1", "e2e", "tyr", "def", "test"]
 
 
 def show_history(domain="com", ip=None, status=None):
     log_df = log_reader.get_logs(domain)
     for i, row in log_df.iterrows():
         if ip is not None:
-            if row['ip'] != ip:
+            if row["ip"] != ip:
                 continue
         if status is not None:
-            if row['code'] != status:
+            if row["code"] != status:
                 continue
         # Ignore some common ones
-        if row['uri'] not in targets_to_ignore:
+        if row["uri"] not in targets_to_ignore:
             print(
-                f"{row['hour']}:{row['minute']}:{row['second']}  " +
-                f"{row['code']} " +
-                f"{row['ip']} " +
-                f"{row['uri']}"
+                f"{row['hour']}:{row['minute']}:{row['second']}  "
+                + f"{row['code']} "
+                + f"{row['ip']} "
+                + f"{row['uri']}"
             )
 
 
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--domain", default="com", required=False)
     parser.add_argument("--ip", default=None)
-    parser.add_argument("-s --status", default=None)
+    parser.add_argument("-s", "--status", default=None)
     args = parser.parse_args()
 
     show_history(domain=args.domain, ip=args.ip, status=args.status)

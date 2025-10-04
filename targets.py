@@ -1,4 +1,4 @@
-targets_to_ignore  [
+targets_to_ignore = [
     "/apple-touch-icon-120x120.png",
     "/apple-touch-icon-120x120-precomposed.png",
     "/apple-touch-icon.png",
@@ -16,3 +16,10 @@ targets_to_ignore  [
     "/.well-known/traffic-advice",
 ]
 
+secret_targets = [
+    "config.env",
+    "config.json",
+    ".env",
+    "env",
+    "env.backup",
+]

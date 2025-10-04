@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 _show_history = True
 _show_ips = False
@@ -21,8 +20,7 @@ logfiles = {
 
 
 def get_logs(domain="com"):
-
-    pd.set_option('display.max_rows', None)
+    pd.set_option("display.max_rows", None)
     with open(logfiles[domain], "rt") as f:
         log = f.readlines()
 
@@ -30,7 +28,7 @@ def get_logs(domain="com"):
     for entry in log:
         i_left_bracket = entry.find("[")
         i_right_bracket = entry.find("]")
-        datetimetzstr = entry[i_left_bracket + 1: i_right_bracket]
+        datetimetzstr = entry[i_left_bracket + 1 : i_right_bracket]
         datetimestr, tz = datetimetzstr.split(" ")
         datestr = datetimestr[:11]
         timestr = datetimestr[12:]
@@ -41,8 +39,8 @@ def get_logs(domain="com"):
         minute = timestr[3:5]
         second = timestr[6:]
 
-        predate_content = entry[:i_left_bracket - 1]
-        postdate_content = entry[i_right_bracket + 3:]
+        predate_content = entry[: i_left_bracket - 1]
+        postdate_content = entry[i_right_bracket + 3 :]
 
         ip, some_stuff, more_stuff = predate_content.split(" ")
 
@@ -85,4 +83,3 @@ def get_logs(domain="com"):
 if __name__ == "__main__":
     logs = get_logs(domain="test")
     print(logs.head())
-

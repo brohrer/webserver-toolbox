@@ -3,6 +3,7 @@ run as
 
 sudo python3 block_ips.py
 """
+
 import os
 
 blocklist = "blocklist.txt"

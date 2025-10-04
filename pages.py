@@ -33,18 +33,22 @@ Usage examples
 - Find out which pages were sought, but not found
     uv run pages.py --status 404
 """
+
 import argparse
 import numpy as np
-from ignore import targets_to_ignore
+from targets import targets_to_ignore
 import log_reader
 
 
 # Ignore pages containing these substrings in their URL
 
+
 def show_pages(domain="com", status_code="200"):
     log_df = log_reader.get_logs(domain)
     pages_visited = (
-        log_df.loc[log_df["code"] == status_code, "uri"].str.removesuffix(".html").values
+        log_df.loc[log_df["code"] == status_code, "uri"]
+        .str.removesuffix(".html")
+        .values
     )
 
     pages, counts = np.unique(pages_visited, return_counts=True)
