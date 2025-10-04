@@ -35,14 +35,11 @@ Usage examples
 """
 import argparse
 import numpy as np
+from ignore import targets_to_ignore
 import log_reader
 
 
 # Ignore pages containing these substrings in their URL
-ignore_pages = [
-    "javascripts",
-    "stylesheets",
-]
 
 def show_pages(domain="com", status_code="200"):
     log_df = log_reader.get_logs(domain)
@@ -53,9 +50,8 @@ def show_pages(domain="com", status_code="200"):
     pages, counts = np.unique(pages_visited, return_counts=True)
     order = np.argsort(counts)
     for i in order:
-        for ignore_page in ignore_pages:
-            if ignore_page in pages[i]:
-                continue
+        if pages[i] in targets_to_ignore:
+            continue
         print(counts[i], pages[i])
 
 

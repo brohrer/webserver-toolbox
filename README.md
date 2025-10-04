@@ -13,6 +13,6 @@ Browse the files for more options
 
 ## Cheatsheets
 
-The copy/pastable cheatsheets by server are in
+The copy/pastable cheatsheets by server are in 
 
-doc/brandonrohrer.com.m
+- `doc/brandonrohrer.com.md`
