@@ -12,7 +12,8 @@ server {
     access_log /var/log/nginx/brandonrohrer.com/access.log;
 	error_log /var/log/nginx/brandonrohrer.com/error.log;
 
-    limit_req zone=one burst=10;
+    limit_req zone=one burst=10 nodelay;
+    limit_req_status 429;
 
     # Do some blocking for security
 
