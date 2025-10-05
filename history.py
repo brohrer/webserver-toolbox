@@ -43,6 +43,7 @@ def show_history(domain="com", ip=None, status=None):
         if row["uri"] not in targets_to_ignore:
             print(
                 f"{row['hour']}:{row['minute']}:{row['second']}  "
+                + f"{row['action']} "
                 + f"{row['code']} "
                 + f"{row['ip']} "
                 + f"{row['uri']}"

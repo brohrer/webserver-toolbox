@@ -1,3 +1,8 @@
+# Set up rate limiting. Create a "zone", a 1MB history of IP addresses
+# that have made requests. On average, they should be making no more than
+# 1 request per second.
+limit_req_zone $binary_remote_addr zone=one:1m rate=1r/s;
+
 server {
     root /var/www/brandonrohrer.com/html;
     index blog.html;
@@ -6,6 +11,8 @@ server {
 
     access_log /var/log/nginx/brandonrohrer.com/access.log;
 	error_log /var/log/nginx/brandonrohrer.com/error.log;
+
+    limit_req zone=one burst=10;
 
     # Do some blocking for security
 
