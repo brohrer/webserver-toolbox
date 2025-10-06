@@ -1,5 +1,24 @@
 # Maintenance tasks for `brandonrohrer.com`
 
+
+## Deploy content updates from local box to git repositories
+
+- If authoring a new page, `page.md`, in `brandonrohrer.com/markdown`
+run `uv run converter.py page.md`
+- In browser open up `page.html` and inspect.
+- `git status`
+- `git add page.html page.md` and any other files that need adding
+- `git commit -m "commit message"`
+- `git push codeberg HEAD`
+- `git push github HEAD`
+- `git push gitlab HEAD`
+
+## Deploy content updates from git repositories to webserver
+
+- `ssh blog`
+- `cd /var/www/brandonrohrer.com/`
+- `sudo git pull origin HEAD`
+
 ## Make a change to the server block
 
 Re-deploy the server block files on the DigitalOcean server droplet.
@@ -16,6 +35,23 @@ After every nginx change
 ```
 sudo nginx -t
 sudo systemctl restart nginx
+```
+
+## Update the allowlist of IP addresses
+
+Update the contents of `~/webserver-tools/.allowlist.txt` to include
+home IP.
+
+Move it to a known location
+
+```
+sudo mv .allowlist.txt /etc/nginx/
+```
+
+## Update the firewall
+
+```
+sudo /home/$USER/.local/bin/uv run update_firewall.py
 ```
 
 ## Update the virtual server (DigitalOcean droplet)

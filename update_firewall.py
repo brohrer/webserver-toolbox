@@ -3,16 +3,18 @@ Add new IP addresses to the blocklist, remove duplicates,
 and sort the list.
 """
 
-# import os
+import os
 import shutil
 
-allowlist = ".allowlist.txt"
-# allowlist = "/etc/nginx/.allowlist.txt"
+allowlist = "/etc/nginx/.allowlist.txt"
+# For local testing
+# allowlist = ".allowlist.txt"
+
 blocklist = "blocklist.txt"
 new_ips = "new_blocks.txt"
 
 
-def main():
+def main(dryrun=False):
     # backup blocklists
     shutil.copy(blocklist, blocklist + ".bak")
     shutil.copy(new_ips, new_ips + ".bak")
@@ -52,13 +54,13 @@ def main():
         for ip in block_ips:
             f.write(ip + "\n")
 
-    # for ip in block_ips:
-    #     print(f"running: ufw insert 1 deny from {ip}")
-    #     os.system(f"ufw insert 1 deny from {ip}")
+    for ip in block_ips:
+        print(f"running: ufw insert 1 deny from {ip}")
+        os.system(f"ufw insert 1 deny from {ip}")
 
-    # for ip in allow_ips:
-    #     print(f"running: ufw insert 1 allow from {ip}")
-    #     os.system(f"ufw insert 1 allow from {ip}")
+    for ip in allow_ips:
+        print(f"running: ufw insert 1 allow from {ip}")
+        os.system(f"ufw insert 1 allow from {ip}")
 
 
 def is_valid_ip(ip):
@@ -90,4 +92,4 @@ def ip_to_key(ip):
 
 
 if __name__ == "__main__":
-    main()
+    main(dryrun=True)
