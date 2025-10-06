@@ -1,0 +1,4 @@
+xxx.xxx.xxx.xxx
+
+# create an .allowlist.txt file of this format
+# and save it in /etc/nginx/
