@@ -2,26 +2,33 @@
 Add new IP addresses to the blocklist, remove duplicates,
 and sort the list.
 """
-
 import os
 import shutil
+import time
 
 allowlist = "/etc/nginx/.allowlist.txt"
 # For local testing
-# allowlist = ".allowlist.txt"
+allowlist = ".allowlist.txt"
 
 blocklist = "blocklist.txt"
-new_ips = "new_blocks.txt"
+new_ips = "blocklist_additions.txt"
 
+backup_dir = "archive"
 
 def main(dryrun=False):
     # backup blocklists
-    shutil.copy(blocklist, blocklist + ".bak")
-    shutil.copy(new_ips, new_ips + ".bak")
+    shutil.copy(new_ips, os.path.join(backup_dir, new_ips + f".{int(time.time())}.bak"))
+    try:
+        shutil.copy(blocklist, os.path.join(backup_dir, blocklist + ".bak"))
+    except FileNotFoundError:
+        pass
 
     # load ip blocklist
-    with open(blocklist, "rt") as f:
-        blocklist_ips = list(f.readlines())
+    try:
+        with open(blocklist, "rt") as f:
+            blocklist_ips = list(f.readlines())
+    except FileNotFoundError:
+        blocklist_ips = []
 
     # load new ips to block
     with open(new_ips, "rt") as f:
@@ -53,6 +60,10 @@ def main(dryrun=False):
     with open(blocklist, "wt") as f:
         for ip in block_ips:
             f.write(ip + "\n")
+
+    # reset an empty list of ips to add to the blocklist
+    with open(new_ips, "wt") as f:
+        f.write("# IP addresses to be added to the blocklist\n")
 
     for ip in block_ips:
         print(f"running: ufw insert 1 deny from {ip}")
