@@ -8,7 +8,7 @@ import time
 
 allowlist = "/etc/nginx/.allowlist.txt"
 # For local testing
-allowlist = ".allowlist.txt"
+# allowlist = ".allowlist.txt"
 
 blocklist = "blocklist.txt"
 new_ips = "blocklist_additions.txt"
