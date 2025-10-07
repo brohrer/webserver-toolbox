@@ -3,7 +3,7 @@ Add new IP addresses to the blocklist, remove duplicates,
 and sort the list.
 
 Usage:
-    sudo uv run update_firewall.py
+    sudo /home/$USER/.local/bin/uv run update_firewall.py
 """
 import os
 import shutil
