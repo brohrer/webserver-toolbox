@@ -10,6 +10,16 @@
 
 Browse the files for more options
 
+## Update the blocklist
+
+Add any IP addresses from `blocklist_additions.txt` to the running
+blocklist.
+
+`sudo /home/$USER/.local/bin/uv run update_firewall.py`
+
+or
+
+`sudo python3 update_firewall.py`
 
 ## Cheatsheets
 

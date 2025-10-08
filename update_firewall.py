@@ -4,42 +4,57 @@ and sort the list.
 
 Usage:
     sudo /home/$USER/.local/bin/uv run update_firewall.py
+or
+    sudo python3 update_firewall.py
 """
+
+import argparse
 import os
 import shutil
 import time
+import config
 
-allowlist = "/etc/nginx/.allowlist.txt"
-# For local testing
-# allowlist = ".allowlist.txt"
 
-blocklist = "blocklist.txt"
-new_ips = "blocklist_additions.txt"
-
-backup_dir = "archive"
-
-def main(dryrun=False):
+def update(domain="com", dryrun=False, local=False):
     # backup blocklists
-    shutil.copy(new_ips, os.path.join(backup_dir, new_ips + f".{int(time.time())}.bak"))
+    source = config.ips_to_block
+    target = os.path.join(
+        config.backup_dir, config.ips_to_block + f".{int(time.time())}.bak"
+    )
+    if dryrun:
+        print(f"Dryrun: Copying {source} to {target}")
+    else:
+        shutil.copy(source, target)
     try:
-        shutil.copy(blocklist, os.path.join(backup_dir, blocklist + ".bak"))
+        source = config.blocked_ips
+        target = os.path.join(config.backup_dir, config.blocked_ips + ".bak")
+
+        if dryrun:
+            print(f"Dryrun: Copying {source} to {target}")
+        else:
+            shutil.copy(source, target)
+
     except FileNotFoundError:
         pass
 
     # load ip blocklist
     try:
-        with open(blocklist, "rt") as f:
+        with open(config.blocked_ips, "rt") as f:
             blocklist_ips = list(f.readlines())
     except FileNotFoundError:
         blocklist_ips = []
 
     # load new ips to block
-    with open(new_ips, "rt") as f:
+    with open(config.ips_to_block, "rt") as f:
         new_block_ips = list(f.readlines())
 
     # load new ips to block
-    with open(allowlist, "rt") as f:
-        allowlist_ips = list(f.readlines())
+    if local:
+        with open(config.allowlist_local, "rt") as f:
+            allowlist_ips = list(f.readlines())
+    else:
+        with open(config.allowlist, "rt") as f:
+            allowlist_ips = list(f.readlines())
 
     block_ips = []
     for ip in blocklist_ips + new_block_ips:
@@ -60,21 +75,31 @@ def main(dryrun=False):
             allow_ips.append(ip)
 
     # write updated ip blocklist
-    with open(blocklist, "wt") as f:
+    with open(config.blocked_ips, "wt") as f:
         for ip in block_ips:
-            f.write(ip + "\n")
+            if dryrun:
+                print(f"dryrun: writing {ip} to blocklist")
+            else:
+                f.write(ip + "\n")
 
     # reset an empty list of ips to add to the blocklist
-    with open(new_ips, "wt") as f:
-        f.write("# IP addresses to be added to the blocklist\n")
+    if not dryrun:
+        with open(config.ips_to_block, "wt") as f:
+            f.write("# IP addresses to be added to the blocklist\n")
 
     for ip in block_ips:
-        print(f"running: ufw insert 1 deny from {ip}")
-        os.system(f"ufw insert 1 deny from {ip}")
+        if dryrun:
+            print(f"dryrun: ufw insert 1 deny from {ip}")
+        else:
+            print(f"running: ufw insert 1 deny from {ip}")
+            os.system(f"ufw insert 1 deny from {ip}")
 
     for ip in allow_ips:
-        print(f"running: ufw insert 1 allow from {ip}")
-        os.system(f"ufw insert 1 allow from {ip}")
+        if dryrun:
+            print(f"dryrun: ufw insert 1 allow from {ip}")
+        else:
+            print(f"running: ufw insert 1 allow from {ip}")
+            os.system(f"ufw insert 1 allow from {ip}")
 
 
 def is_valid_ip(ip):
@@ -97,13 +122,19 @@ def is_valid_ip(ip):
 def ip_to_key(ip):
     parts = ip.split(".")
     key = (
-        int(parts[0]) * 1_000_000_000 +
-        int(parts[1]) * 1_000_000 +
-        int(parts[2]) * 1000 +
-        int(parts[3])
+        int(parts[0]) * 1_000_000_000
+        + int(parts[1]) * 1_000_000
+        + int(parts[2]) * 1000
+        + int(parts[3])
     )
     return key
 
 
 if __name__ == "__main__":
-    main(dryrun=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--domain", default="com", required=False)
+    parser.add_argument("-r", "--dryrun", action="store_true")
+    parser.add_argument("-l", "--local", action="store_true")
+    args = parser.parse_args()
+
+    update(domain=args.domain, dryrun=args.dryrun, local=args.local)

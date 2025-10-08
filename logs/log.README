@@ -1,4 +1,6 @@
-# Blocklist archive
+# Blocklist logs
 
 This is where the previous version of the blocklist is stored, and
 each of the previous blocklist additions.
+
+Also, logs for the auto-tagged IPs, reason for tagging, and date tagged.
