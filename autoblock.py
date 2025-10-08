@@ -25,8 +25,9 @@ one_strike_pages = [
 ]
 
 one_strike_actions = [
-    "PROPFIND",
     "CONNECT",
+    "PROPFIND",
+    "SSTP_DUPLEX_POST",
 ]
 
 

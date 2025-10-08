@@ -75,11 +75,12 @@ def update(domain="com", dryrun=False, local=False):
             allow_ips.append(ip)
 
     # write updated ip blocklist
-    with open(config.blocked_ips, "wt") as f:
+    if dryrun:
         for ip in block_ips:
-            if dryrun:
-                print(f"dryrun: writing {ip} to blocklist")
-            else:
+            print(f"dryrun: writing {ip} to blocklist")
+    else:
+        with open(config.blocked_ips, "wt") as f:
+            for ip in block_ips:
                 f.write(ip + "\n")
 
     # reset an empty list of ips to add to the blocklist
