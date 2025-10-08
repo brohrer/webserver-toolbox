@@ -2,6 +2,7 @@ __pycache__
 
 uv.lock
 
-*.bak
-
 blocklist.txt
+logs/*.bak
+logs/*.log
+logs/*.txt

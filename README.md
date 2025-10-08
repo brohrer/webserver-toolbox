@@ -10,6 +10,7 @@
 
 Browse the files for more options
 
+
 ## Update the blocklist
 
 Add any IP addresses from `blocklist_additions.txt` to the running
@@ -20,6 +21,33 @@ blocklist.
 or
 
 `sudo python3 update_firewall.py`
+
+
+## Update the allowlist of IP addresses
+
+Update the contents of `~/webserver-tools/.allowlist.txt` to include
+home IP.
+
+Move it to a known location
+
+`sudo mv .allowlist.txt /etc/nginx/`
+
+
+## Auto-detect block-worthy IP addresses
+
+`uv run autoblock.py`
+
+for yesterday
+
+`uv run autoblock.py -d com1`
+
+
+## Update the virtual server (DigitalOcean droplet)
+
+```
+sudo apt update
+sudo apt upgrade -y
+```
 
 ## Cheatsheets
 

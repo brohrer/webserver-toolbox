@@ -1,3 +1,5 @@
+import os
+import config
 import pandas as pd
 
 _show_history = True
@@ -15,7 +17,7 @@ logfiles = {
     "e2e": "/var/log/nginx/e2eml.school/access.log",
     "tyr": "/var/log/nginx/tyr.fyi/access.log",
     "def": "/var/log/nginx/access.log",
-    "test": "test.log",
+    "test": str(os.path.join(config.log_dir, config.test_log)),
 }
 
 

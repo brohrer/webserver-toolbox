@@ -42,6 +42,11 @@ def find_bad_behavior(domain="com", dryrun=False):
     """
     log_df = log_reader.get_logs(domain)
 
+    _scan_for_one_strike_page_violations(log_df, dryrun)
+    _scan_for_one_strike_action_violations(log_df, dryrun)
+
+
+def _scan_for_one_strike_page_violations(log_df, dryrun):
     # Check for one-strike-and-you're-out file access offenses
     one_strike_page_ips = []
     for i, row in log_df.iterrows():
@@ -50,14 +55,13 @@ def find_bad_behavior(domain="com", dryrun=False):
                 one_strike_page_ips.append(row["ip"])
 
     # List each IP just once
-    one_strike_ips = list(set(one_strike_page_ips))
+    one_strike_page_ips = list(set(one_strike_page_ips))
 
     # Add these to the log
-
     isodate = datetime.now().isoformat().split("T")[0]
-    log_filename = os.path.join(config.backup_dir, config.one_strike_page_log)
+    log_filename = os.path.join(config.log_dir, config.one_strike_page_log)
     with open(log_filename, "at") as f:
-        for ip in one_strike_ips:
+        for ip in one_strike_page_ips:
             if dryrun:
                 print(f"adding {isodate} {ip} to the one-strike-page log")
             else:
@@ -65,9 +69,38 @@ def find_bad_behavior(domain="com", dryrun=False):
 
     # Add these to the to-block list
     with open(config.ips_to_block, "at") as f:
-        for ip in one_strike_ips:
+        for ip in one_strike_page_ips:
             if dryrun:
                 print(f"blocking {ip} as one-strike-page")
+            else:
+                f.write(ip + "\n")
+
+
+def _scan_for_one_strike_action_violations(log_df, dryrun):
+    # Check for one-strike-and-you're-out attempted action offenses
+    one_strike_action_ips = []
+    for i, row in log_df.iterrows():
+        if row["action"] in one_strike_actions:
+            one_strike_action_ips.append(row["ip"])
+
+    # List each IP just once
+    one_strike_action_ips = list(set(one_strike_action_ips))
+
+    # Add these to the log
+    isodate = datetime.now().isoformat().split("T")[0]
+    log_filename = os.path.join(config.log_dir, config.one_strike_action_log)
+    with open(log_filename, "at") as f:
+        for ip in one_strike_action_ips:
+            if dryrun:
+                print(f"adding {isodate} {ip} to the one-strike-action log")
+            else:
+                f.write(f"{isodate} {ip} \n")
+
+    # Add these to the to-block list
+    with open(config.ips_to_block, "at") as f:
+        for ip in one_strike_action_ips:
+            if dryrun:
+                print(f"blocking {ip} as one-strike-action")
             else:
                 f.write(ip + "\n")
 

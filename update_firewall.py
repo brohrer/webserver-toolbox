@@ -19,7 +19,7 @@ def update(domain="com", dryrun=False, local=False):
     # backup blocklists
     source = config.ips_to_block
     target = os.path.join(
-        config.backup_dir, config.ips_to_block + f".{int(time.time())}.bak"
+        config.log_dir, config.ips_to_block + f".{int(time.time())}.bak"
     )
     if dryrun:
         print(f"Dryrun: Copying {source} to {target}")
@@ -27,7 +27,7 @@ def update(domain="com", dryrun=False, local=False):
         shutil.copy(source, target)
     try:
         source = config.blocked_ips
-        target = os.path.join(config.backup_dir, config.blocked_ips + ".bak")
+        target = os.path.join(config.log_dir, config.blocked_ips + ".bak")
 
         if dryrun:
             print(f"Dryrun: Copying {source} to {target}")

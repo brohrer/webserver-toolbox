@@ -37,26 +37,3 @@ sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-## Update the allowlist of IP addresses
-
-Update the contents of `~/webserver-tools/.allowlist.txt` to include
-home IP.
-
-Move it to a known location
-
-```
-sudo mv .allowlist.txt /etc/nginx/
-```
-
-## Update the firewall
-
-```
-sudo /home/$USER/.local/bin/uv run update_firewall.py
-```
-
-## Update the virtual server (DigitalOcean droplet)
-
-```
-sudo apt update
-sudo apt upgrade -y
-```
