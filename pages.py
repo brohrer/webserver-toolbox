@@ -37,14 +37,14 @@ Usage examples
 import argparse
 import numpy as np
 from targets import targets_to_ignore
-import log_reader
+import reader
 
 
 # Ignore pages containing these substrings in their URL
 
 
 def show_pages(domain="com", status_code="200"):
-    log_df = log_reader.get_logs(domain)
+    log_df = reader.get_logs(domain)
     pages_visited = (
         log_df.loc[log_df["code"] == status_code, "uri"]
         .str.removesuffix(".html")

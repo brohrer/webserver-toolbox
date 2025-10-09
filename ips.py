@@ -18,13 +18,13 @@ Usage examples
 
 import argparse
 import numpy as np
-import log_reader
+import reader
 
 # domains = ["com", "com1", "e2e", "tyr", "def", "test"]
 
 
 def show_ips(domain="com"):
-    log_df = log_reader.get_logs(domain)
+    log_df = reader.get_logs(domain)
     ips = log_df["ip"].values
     ips, counts = np.unique(ips, return_counts=True)
     order = np.argsort(counts)

@@ -31,7 +31,7 @@ and shouldn't be displayed.
 
 import argparse
 from targets import targets_to_ignore
-import log_reader
+import reader
 
 
 def show_history(
@@ -63,7 +63,7 @@ def show_history(
         An HTTP status code, for example {"200", "301", "404", "429", "503"}.
         Only show requests with this code.
     """
-    log_df = log_reader.get_logs(domain)
+    log_df = reader.get_logs(domain)
     for i, row in log_df.iterrows():
         if action is not None:
             if row["action"].lower() != action.lower():
