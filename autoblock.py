@@ -28,6 +28,7 @@ n_strikes = 5
 n_strike_pages = [
     ".php",
     "wp-includes",
+    "wp-content",
 ]
 
 one_strike_actions = [

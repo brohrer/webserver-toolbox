@@ -47,12 +47,17 @@ def get_logs(domain="com"):
         ip, some_stuff, more_stuff = predate_content.split(" ")
 
         parts = postdate_content.split('"')
-        try:
-            action, uri, protocol = parts[0].split(" ")
-        except ValueError:
+        action_parts = parts[0].split(" ")
+        if len(action_parts) == 3:
+            action, uri, protocol = action_parts
+        elif len(action_parts) == 2:
+            action, uri = action_parts
+            protocol = ""
+        else:
             action = ""
             uri = ""
             protocol = ""
+
         code, body_bytes = parts[1].strip().split(" ")
         referrer = parts[2]
         # empty = parts[3]
