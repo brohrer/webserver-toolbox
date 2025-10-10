@@ -1,3 +1,9 @@
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+webserver-toolbox = ["logs/*.txt", "logs/log.README"]
+
 [project]
 name = "webserver-toolbox"
 version = "0.1.0"

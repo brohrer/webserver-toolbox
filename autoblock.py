@@ -37,6 +37,9 @@ one_strike_actions = [
     "SSTP_DUPLEX_POST",
 ]
 
+# TODO: check for missing verb
+n_strike_actions = []
+
 
 def find_bad_behavior(domain="com", dryrun=False):
     """

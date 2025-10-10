@@ -1,7 +1,6 @@
 """
 Some shared references across the library
 """
-
 log_dir = "logs"
 
 allowlist = "/etc/nginx/.allowlist.txt"
