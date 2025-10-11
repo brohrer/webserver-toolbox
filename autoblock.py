@@ -34,6 +34,8 @@ def find_bad_behavior(domain="com", dryrun=False):
     _scan_for_one_strike_page_violations(log_df, dryrun)
     _scan_for_n_strike_page_violations(log_df, dryrun)
     _scan_for_one_strike_action_violations(log_df, dryrun)
+    _scan_for_n_strike_action_violations(log_df, dryrun)
+    _scan_for_n_strike_status_violations(log_df, dryrun)
 
 
 def _scan_for_one_strike_page_violations(log_df, dryrun):
@@ -178,7 +180,7 @@ def _scan_for_n_strike_status_violations(log_df, dryrun):
     # These are more annoyances than direct attacks
     strikes = {}
     for i, row in log_df.iterrows():
-        for status in config.n_strike_statuss:
+        for status in config.n_strike_status:
             if status == row["status"]:
                 if row["ip"] in strikes:
                     strikes[row["ip"]] += 1
