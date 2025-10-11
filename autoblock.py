@@ -181,7 +181,7 @@ def _scan_for_n_strike_status_violations(log_df, dryrun):
     strikes = {}
     for i, row in log_df.iterrows():
         for status in config.n_strike_status:
-            if status == row["status"]:
+            if status == row["code"]:
                 if row["ip"] in strikes:
                     strikes[row["ip"]] += 1
                 else:
