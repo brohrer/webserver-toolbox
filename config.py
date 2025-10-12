@@ -1,8 +1,13 @@
 """
 Some shared references across the library
 """
+import os
+from pathlib import Path
 
-log_dir = "logs"
+module_path = os.path.abspath(__file__)
+
+log_dir_name = "logs"
+log_dir = Path(module_path).parent.joinpath(log_dir_name)
 
 allowlist = "/etc/nginx/.allowlist.txt"
 # For local testing
