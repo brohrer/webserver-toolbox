@@ -5,16 +5,19 @@ import os
 from pathlib import Path
 
 module_path = os.path.abspath(__file__)
+module_dir = Path(module_path).parent
 
 log_dir_name = "logs"
-log_dir = Path(module_path).parent.joinpath(log_dir_name)
+log_dir = module_dir.joinpath(log_dir_name)
 
 allowlist = "/etc/nginx/.allowlist.txt"
 # For local testing
 allowlist_local = ".allowlist.txt"
 
-blocked_ips = "blocklist.txt"
-ips_to_block = "blocklist_additions.txt"
+blocked_ips_filename = "blocklist.txt"
+blocked_ips = module_dir.joinpath(blocked_ips_filename)
+ips_to_block_filename = "blocklist_additions.txt"
+ips_to_block = module_dir.joinpath(ips_to_block_filename)
 
 one_strike_action_log = "blocks_one_strike_action.txt"
 one_strike_page_log = "blocks_one_strike_page.txt"
