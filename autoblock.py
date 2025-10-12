@@ -189,7 +189,7 @@ def _scan_for_n_strike_status_violations(log_df, dryrun):
 
     n_strike_status_ips = []
     for ip, strike_count in strikes.items():
-        if strike_count >= config.n_strikes_for_statuss:
+        if strike_count >= config.n_strikes_for_status:
             n_strike_status_ips.append(ip)
 
     # List each IP just once
