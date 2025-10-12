@@ -18,16 +18,16 @@ import config
 def update(domain="com", dryrun=False, local=False):
     # backup blocklists
     source = config.ips_to_block
-    target = os.path.join(
-        config.log_dir, config.ips_to_block + f".{int(time.time())}.bak"
-    )
+    backup_filename = config.ips_to_block_filename + f".{int(time.time())}.bak"
+    target = config.log_dir.joinpath(backup_filename)
     if dryrun:
         print(f"Dryrun: Copying {source} to {target}")
     else:
         shutil.copy(source, target)
     try:
         source = config.blocked_ips
-        target = os.path.join(config.log_dir, config.blocked_ips + ".bak")
+        backup_filename = config.blocked_ips_filename + ".bak"
+        target = config.log_dir.joinpath(backup_filename)
 
         if dryrun:
             print(f"Dryrun: Copying {source} to {target}")
