@@ -88,19 +88,28 @@ def update(domain="com", dryrun=False, local=False):
         with open(config.ips_to_block, "wt") as f:
             f.write("# IP addresses to be added to the blocklist\n")
 
+        try:
+            os.remove(config.firewall_update_script)
+        except FileNotFoundError:
+            pass
+
     for ip in block_ips:
         if dryrun:
-            print(f"dryrun: ufw insert 1 deny from {ip}")
+            print(f"dryrun: ufw deny from {ip}")
         else:
-            print(f"running: ufw insert 1 deny from {ip}")
-            os.system(f"ufw insert 1 deny from {ip}")
+            # print(f"running: ufw insert 1 deny from {ip}")
+            # os.system(f"ufw insert 1 deny from {ip}")
+            with open (config.firewall_update_script, "at") as f:
+                f.write(f"ufw deny from {ip}\n")
 
     for ip in allow_ips:
         if dryrun:
             print(f"dryrun: ufw insert 1 allow from {ip}")
         else:
-            print(f"running: ufw insert 1 allow from {ip}")
-            os.system(f"ufw insert 1 allow from {ip}")
+            # print(f"running: ufw insert 1 allow from {ip}")
+            # os.system(f"ufw insert 1 allow from {ip}")
+            with open (config.firewall_update_script, "at") as f:
+                f.write(f"ufw insert 1 allow from {ip}\n")
 
 
 def is_valid_ip(ip):

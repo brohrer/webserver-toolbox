@@ -54,3 +54,7 @@ sudo apt upgrade -y
 The copy/pastable cheatsheets by server are in 
 
 - `doc/brandonrohrer.com.md`
+
+## cron
+
+[crontab debugging](https://stackoverflow.com/questions/22743548/cronjob-not-running)
