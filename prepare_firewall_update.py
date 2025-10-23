@@ -3,9 +3,10 @@ Add new IP addresses to the blocklist, remove duplicates,
 and sort the list.
 
 Usage:
-    sudo /home/$USER/.local/bin/uv run update_firewall.py
-or
-    sudo python3 update_firewall.py
+    uv run prepare_firewall_update.py
+
+And follow up:
+    sudo bash update_firewall.sh
 """
 
 import argparse
@@ -46,7 +47,7 @@ def update(domain="com", dryrun=False, local=False):
 
     # load new ips to block
     with open(config.ips_to_block, "rt") as f:
-        new_block_ips = list(f.readlines())
+        new_block_ips_raw = list(f.readlines())
 
     # load new ips to block
     if local:
@@ -56,32 +57,29 @@ def update(domain="com", dryrun=False, local=False):
         with open(config.allowlist, "rt") as f:
             allowlist_ips = list(f.readlines())
 
-    block_ips = []
+    new_block_ips = []
+    for ip in new_block_ips_raw:
+        ip = ip.strip()
+        if is_valid_ip(ip):
+            new_block_ips.append(ip)
+
+    updated_blocklist = []
     for ip in blocklist_ips + new_block_ips:
         ip = ip.strip()
         if is_valid_ip(ip):
-            block_ips.append(ip)
+            updated_blocklist.append(ip)
 
     # Ensure each IP address only shows up once
-    block_ips = list(set(block_ips))
+    updated_blocklist = list(set(updated_blocklist))
 
     # Sort ips numerically by address fields
-    block_ips.sort(key=ip_to_key)
+    updated_blocklist.sort(key=ip_to_key)
 
     allow_ips = []
     for ip in allowlist_ips:
         ip = ip.strip()
         if is_valid_ip(ip):
             allow_ips.append(ip)
-
-    # write updated ip blocklist
-    if dryrun:
-        for ip in block_ips:
-            print(f"dryrun: writing {ip} to blocklist")
-    else:
-        with open(config.blocked_ips, "wt") as f:
-            for ip in block_ips:
-                f.write(ip + "\n")
 
     # reset an empty list of ips to add to the blocklist
     if not dryrun:
@@ -93,23 +91,35 @@ def update(domain="com", dryrun=False, local=False):
         except FileNotFoundError:
             pass
 
-    for ip in block_ips:
-        if dryrun:
-            print(f"dryrun: ufw deny from {ip}")
-        else:
-            # print(f"running: ufw insert 1 deny from {ip}")
-            # os.system(f"ufw insert 1 deny from {ip}")
-            with open (config.firewall_update_script, "at") as f:
-                f.write(f"ufw deny from {ip}\n")
-
+    # refresh the allowlisted ips
     for ip in allow_ips:
+        rule = f"ufw insert 1 allow from {ip}"
         if dryrun:
-            print(f"dryrun: ufw insert 1 allow from {ip}")
+            print(f"dryrun: {rule}")
         else:
-            # print(f"running: ufw insert 1 allow from {ip}")
-            # os.system(f"ufw insert 1 allow from {ip}")
-            with open (config.firewall_update_script, "at") as f:
-                f.write(f"ufw insert 1 allow from {ip}\n")
+            with open(config.firewall_update_script, "at") as f:
+                f.write(f"echo '{rule}'\n")
+                f.write(f"{rule}\n")
+
+    # block any newly added ips
+    insert_position = len(allow_ips) + 1
+    for ip in new_block_ips:
+        rule = f"ufw insert {insert_position} deny from {ip}"
+        if dryrun:
+            print(f"dryrun: {rule}")
+        else:
+            with open(config.firewall_update_script, "at") as f:
+                f.write(f"echo '{rule}'\n")
+                f.write(f"{rule}\n")
+
+    # write updated ip blocklist
+    if dryrun:
+        for ip in updated_blocklist:
+            print(f"dryrun: writing {ip} to blocklist")
+    else:
+        with open(config.blocked_ips, "wt") as f:
+            for ip in updated_blocklist:
+                f.write(ip + "\n")
 
 
 def is_valid_ip(ip):

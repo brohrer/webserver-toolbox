@@ -1,6 +1,7 @@
 """
 Some shared references across the library
 """
+
 import os
 from pathlib import Path
 
