@@ -36,9 +36,13 @@ one_strike_pages = [
 
 n_strikes_for_pages = 5
 n_strike_pages = [
+    ".7z",
+    ".gz",
     ".php",
+    ".rar",
     "wp-includes",
     "wp-content",
+    ".zip"
 ]
 
 one_strike_actions = [
