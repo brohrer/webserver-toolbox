@@ -11,7 +11,8 @@ module_dir = Path(module_path).parent
 log_dir_name = "logs"
 log_dir = module_dir.joinpath(log_dir_name)
 
-firewall_update_script = "update_firewall.sh"
+firewall_update_script_filename = "update_firewall.sh"
+firewall_update_script = module_dir.joinpath(firewall_update_script_filename)
 
 allowlist = "/etc/nginx/.allowlist.txt"
 # For local testing
