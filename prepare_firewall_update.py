@@ -1,4 +1,7 @@
 """
+DEPRECATED
+Merged with autoblock.py
+
 Add new IP addresses to the blocklist, remove duplicates,
 and sort the list.
 
