@@ -4,7 +4,7 @@ uv.lock
 
 blocklist.txt
 blocklist_additions.txt
-logs/*.bak
 logs/*.log
 logs/*.txt
 archive/
+*.bak

@@ -29,11 +29,3 @@ Then update the server block.
 sudo cp /etc/nginx/sites-available/brandonrohrer.com /etc/nginx/sites-available/brandonrohrer.com.bak
 sudo cp ~/webserver-toolbox/server_blocks/brandonrohrer.com /etc/nginx/sites-available/brandonrohrer.com
 ```
-
-After every nginx change
-
-```
-sudo nginx -t
-sudo systemctl restart nginx
-```
-

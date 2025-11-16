@@ -1,4 +1,4 @@
-# Set up rate limiting. Create a "zone", a 1MB history of IP addresses
+a Set up rate limiting. Create a "zone", a 1MB history of IP addresses
 # that have made requests. On average, they should be making no more than
 # 1 request per second.
 limit_req_zone $binary_remote_addr zone=one:1m rate=1r/s;
@@ -59,13 +59,13 @@ server {
 	}
 
 	location = /httyr {
-	     return 301 $scheme://brandonrohrer.com/httyr/httyr.html; 
+	     return 301 /httyr/httyr.html; 
 	}
 	location = /howtotrainyourrobot {
-	     return 301 $scheme://brandonrohrer.com/httyr/httyr.html; 
+	     return 301 /httyr/httyr.html; 
 	}
 	location = /how_to_train_your_robot{
-	     return 301 $scheme://brandonrohrer.com/httyr/httyr.html; 
+	     return 301 /httyr/httyr.html; 
 	}
 	location = /buckettree {
 	     return 301 https://codeberg.org/brohrer/bucket-tree;
@@ -80,7 +80,7 @@ server {
 	     return 301 https://codeberg.org/brohrer/myrtle;
 	}
 	location = /numba {
-	     return 301 $scheme://brandonrohrer.com/numba_tips.html;
+	     return 301 /numba_tips.html;
 	}
 	location = /ziptie {
 	     return 301 https://codeberg.org/brohrer/ziptie-paper/src/branch/main/ziptie.pdf;
@@ -167,10 +167,10 @@ server {
 	}
 
 	location = /2 {
-	     return 301 https://www.brandonrohrer.com/httyr/httyr02.html;    
+	     return 301 /httyr/httyr02.html;    
 	}
 	location = /httyr2 {
-	     return 301 https://www.brandonrohrer.com/httyr/httyr02.html;    
+	     return 301 /httyr/httyr02.html;    
 	}
 	location = /httyr2pdf {
 	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_2/chapter_2.pdf;
@@ -180,10 +180,10 @@ server {
 	}
 
 	location = /3 {
-	     return 301 $scheme://brandonrohrer.com/httyr/httyr03.html;
+	     return 301 /httyr/httyr03.html;
 	}
 	location = /httyr3 {
-	     return 301 $scheme://brandonrohrer.com/httyr/httyr03.html;
+	     return 301 /httyr/httyr03.html;
 	}
 	location = /httyr3pdf {
 	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_3/chapter_3.pdf;
@@ -196,10 +196,10 @@ server {
 	}
 
 	location = /4 {
-	     return 301 $scheme://brandonrohrer.com/httyr/httyr04.html;
+	     return 301 /httyr/httyr04.html;
 	}
 	location = /httyr4 {
-	     return 301 $scheme://brandonrohrer.com/httyr/httyr04.html;
+	     return 301 /httyr/httyr04.html;
 	}
 	location = /httyr4pdf {
 	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_4/chapter_4.pdf;
@@ -263,13 +263,13 @@ server {
 	     return 301 https://en.wikipedia.org/wiki/Logit-normal_distribution;
 	}
 	location = /4matmul {
-	     return 301 https://brandonrohrer.com/transformers.html#matrix_multiplication;
+	     return 301 /transformers.html#matrix_multiplication;
 	}
 	location = /4color {
-	     return 301 https://brandonrohrer.com/matplotlib_color.html;
+	     return 301 /matplotlib_color.html;
 	}
 	location = /4numbers {
-	     return 301 https://brandonrohrer.com/images_to_numbers.html;
+	     return 301 /images_to_numbers.html;
 	}
 	location = /4matplotlib {
 	     return 301 https://matplotlib.org/stable/api/index;
@@ -285,7 +285,7 @@ server {
 	}
 
 	location = /httyr5 {
-	     return 301 https://www.brandonrohrer.com/httyr/httyr05.html;
+	     return 301 /httyr/httyr05.html;
 	}
 	location = /httyr5pdf {
 	     return 301 https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_5/chapter_5.pdf;

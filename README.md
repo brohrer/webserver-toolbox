@@ -1,5 +1,17 @@
 # webserver-toolbox
 
+This package has a collection of tools I've found helpful in deploying
+and maintaining a static website, which I use to host my blog.
+Accompanying posts [on the blog](https://brandonrohrer.com):
+[I](https://brandonrohrer.com/hosting.html),
+[II](https://brandonrohrer.com/hosting2.html),
+[III](https://brandonrohrer.com/hosting3.html),
+[IV](https://brandonrohrer.com/hosting4.html),
+[V](https://brandonrohrer.com/hosting5.html),
+[VI](https://brandonrohrer.com/hosting6.html),
+[VII](https://brandonrohrer.com/hosting7.html)
+
+
 ## Log inspection
 
 `uv run history.py` to browse the day's history
@@ -55,6 +67,19 @@ The copy/pastable cheatsheets by server are in
 
 - `doc/brandonrohrer.com.md`
 
-## cron
+
+## Set up a recurring task with `cron`
+
 
 [crontab debugging](https://stackoverflow.com/questions/22743548/cronjob-not-running)
+
+
+## Restart nginx
+
+After every nginx change
+
+```
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
