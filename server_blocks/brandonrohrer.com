@@ -1,10 +1,11 @@
-a Set up rate limiting. Create a "zone", a 1MB history of IP addresses
+# Set up rate limiting. Create a "zone", a 1MB history of IP addresses
 # that have made requests. On average, they should be making no more than
 # 1 request per second.
 limit_req_zone $binary_remote_addr zone=one:1m rate=1r/s;
 
 server {
-    root /var/www/brandonrohrer.com/html;
+    root /var/www/blog-website/html;
+    # root /var/www/brandonrohrer.com/html;
     index blog.html;
 
     server_name brandonrohrer.com www.brandonrohrer.com;

@@ -10,6 +10,20 @@ module_dir = Path(module_path).parent
 
 log_dir_name = "logs"
 log_dir = module_dir.joinpath(log_dir_name)
+test_log = "test.log"
+
+logfiles = {
+    "com": "/var/log/nginx/brandonrohrer.com/access.log",
+    "com1": "/var/log/nginx/brandonrohrer.com/access.log.1",
+    "org": "/var/log/nginx/brandonrohrer.org/access.log",
+    "org1": "/var/log/nginx/brandonrohrer.org/access.log.1",
+    "at": "/var/log/nginx/brandonrohrer.at/access.log",
+    "at1": "/var/log/nginx/brandonrohrer.at/access.log.1",
+    "e2e": "/var/log/nginx/e2eml.school/access.log",
+    "tyr": "/var/log/nginx/tyr.fyi/access.log",
+    "def": "/var/log/nginx/access.log",
+    "test": str(os.path.join(log_dir, test_log)),
+}
 
 firewall_update_script_filename = "update_firewall.sh"
 firewall_update_script = module_dir.joinpath(firewall_update_script_filename)
@@ -28,7 +42,6 @@ one_strike_page_log = "blocks_one_strike_page.txt"
 n_strike_page_log = "blocks_n_strike_page.txt"
 n_strike_action_log = "blocks_n_strike_action.txt"
 n_strike_status_log = "blocks_n_strike_status.txt"
-test_log = "test.log"
 
 # Attmepting to access files with these names even once will get a block
 one_strike_pages = [

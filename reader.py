@@ -11,19 +11,10 @@ _referrers_page = "/"
 _show_ip = True
 _ip = "217.113.194.191"
 
-logfiles = {
-    "com": "/var/log/nginx/brandonrohrer.com/access.log",
-    "com1": "/var/log/nginx/brandonrohrer.com/access.log.1",
-    "e2e": "/var/log/nginx/e2eml.school/access.log",
-    "tyr": "/var/log/nginx/tyr.fyi/access.log",
-    "def": "/var/log/nginx/access.log",
-    "test": str(os.path.join(config.log_dir, config.test_log)),
-}
-
 
 def get_logs(domain="com"):
     pd.set_option("display.max_rows", None)
-    with open(logfiles[domain], "rt") as f:
+    with open(config.logfiles[domain], "rt") as f:
         log = f.readlines()
 
     rowlist = []
