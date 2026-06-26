@@ -23,18 +23,6 @@ Accompanying posts [on the blog](https://brandonrohrer.com):
 Browse the files for more options
 
 
-## Update the blocklist
-
-Add any IP addresses from `blocklist_additions.txt` to the running
-blocklist.
-
-`sudo /home/$USER/.local/bin/uv run update_firewall.py`
-
-or
-
-`sudo python3 update_firewall.py`
-
-
 ## Update the allowlist of IP addresses
 
 Update the contents of `~/webserver-tools/.allowlist.txt` to include
@@ -46,6 +34,9 @@ Move it to a known location
 
 
 ## Auto-detect block-worthy IP addresses
+
+Add any IP addresses from `blocklist_additions.txt` to the running
+blocklist.
 
 `uv run autoblock.py`
 
