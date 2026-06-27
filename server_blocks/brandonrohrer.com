@@ -83,9 +83,6 @@ server {
 	location = /numba {
 	     return 301 /numba_tips.html;
 	}
-	location = /research {
-	     return 301 /blog.html#algos;
-	}
 	location = /ziptie {
 	     return 301 https://codeberg.org/brohrer/ziptie-paper/src/branch/main/ziptie.pdf;
 	}
@@ -145,6 +142,12 @@ server {
 	}
 	location = /statistics_resources.html  {
 	     return 301 /stats_resources.html;
+	}
+	location = /laboratory {
+	     return 301 /blog.html#algos;
+	}
+	location = /research {
+	     return 301 /blog.html#algos;
 	}
 
 	location = /drugs {
