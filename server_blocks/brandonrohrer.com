@@ -38,6 +38,11 @@ server {
 	    deny all;
 	}
 
+    # Capture traffic headed to laboratory.html
+	location = /laboratory {
+	     return 301 /blog.html#algos;
+	}
+
     # Try to reach varations of the requested file
 	location / {
         try_files $uri $uri.html $uri/ =404;
@@ -142,9 +147,6 @@ server {
 	}
 	location = /statistics_resources.html  {
 	     return 301 /stats_resources.html;
-	}
-	location = /laboratory {
-	     return 301 /blog.html#algos;
 	}
 	location = /research {
 	     return 301 /blog.html#algos;
